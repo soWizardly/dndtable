@@ -9,3 +9,5 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 .env
+SWITCH_ON.bat
+SWITCH_OFF.bat
