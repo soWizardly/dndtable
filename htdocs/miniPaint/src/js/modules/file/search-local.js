@@ -4,7 +4,7 @@ import Dialog_class from './../../libs/popup.js';
 import alertify from './../../../../node_modules/alertifyjs/build/alertify.min.js';
 
 /** 
- * manages iamge search on https://pixabay.com/en/service/about/api/
+ * manages image search on https://localhost/api/images
  */
 class File_search_media_class {
 
@@ -42,7 +42,7 @@ class File_search_media_class {
 
 		var settings = {
 			title: 'Search',
-			comment: 'Powred by <a class="grey" href="https://pixabay.com/">pixabay.com</a>.',
+			comment: 'Powered by Wizards',
 			className: 'wide',
 			params: [
 				{name: "query", title: "Keyword:", value: query},
@@ -84,7 +84,8 @@ class File_search_media_class {
 				}
 				else {
 					//query to service
-					var URL = "https://pixabay.com/api/?key=" + key + "&per_page=50&q=" + encodeURIComponent(params.query);
+					var URL = "http://localhost/api/image?per_page=50&q=" + encodeURIComponent(params.query);
+					//var URL = "https://pixabay.com/api/?key=" + key + "&per_page=50&q=" + encodeURIComponent(params.query);
 					$.getJSON(URL, function (data) {
 
 						_this.cache[params.query] = data;

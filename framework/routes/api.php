@@ -13,17 +13,17 @@ use Illuminate\Http\Request;
 |
 */
 
-$config = ['middleware' => 'auth'];
-$config = [];
+#$config = ['middleware' => 'auth'];
+#$config = [];
 
-Route::group($config, function () {
-    Route::get('testing', function(){
-		dd('hi');
-	});
-	Route::get('api/testing', function(){
-		dd('hi2');
-	});
-});
+#Route::group($config, function () {
+#    Route::get('testing', function(){#z
+#		dd('hi');
+#	});#
+#	Route::get('api/testing', function(){
+#		dd('hi2');
+#	});
+#}#);
 
 #Route::middleware('auth:api')->get('/user', function (Request $request) {
 #    return $request->user();

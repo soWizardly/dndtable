@@ -1,6 +1,6 @@
 import config from './../config.js';
 import Base_tools_class from './../core/base-tools.js';
-import File_search_media_class from './../modules/file/search.js';
+import File_search_media_class from './../modules/file/search-local.js';
 
 class Media_class extends Base_tools_class {
 

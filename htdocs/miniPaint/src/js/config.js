@@ -66,15 +66,15 @@ config.TOOLS = [
 			strict: true,
 		},
 	},
-	{
-		name: 'magic_wand',
-		title: 'Magic Wand Tool',
-		attributes: {
-			power: 15,
-			anti_aliasing: true,
-			contiguous: false,
-		},
-	},
+	//{
+	//	name: 'magic_wand',
+	//	title: 'Magic Wand Tool',
+	//	attributes: {
+	//		power: 15,
+	//		anti_aliasing: true,
+	//		contiguous: false,
+	//	},
+	//},
 	{
 		name: 'fill',
 		title: 'Fill',
@@ -151,18 +151,18 @@ config.TOOLS = [
 			radial_power: 50,
 		},
 	},
-	{
-		name: 'clone',
-		title: 'Clone tool',
-		attributes: {
-			size: 30,
-			anti_aliasing: true,
-			source_layer: {
-				value: 'Current',
-				values: ['Current', 'Previous'],
-			},
-		},
-	},
+	//{
+	//	name: 'clone',
+	//	title: 'Clone tool',
+	//	attributes: {
+	//		size: 30,
+	//		anti_aliasing: true,
+	//		source_layer: {
+	//			value: 'Current',
+	//			values: ['Current', 'Previous'],
+	//		},
+	//	},
+	//},
 	{
 		name: 'crop',
 		title: 'Crop',
@@ -187,14 +187,14 @@ config.TOOLS = [
 			size: 30,
 		},
 	},
-	{
-		name: 'desaturate',
-		title: 'Desaturate',
-		attributes: {
-			size: 50,
-			anti_aliasing: true,
-		},
-	},
+	//{
+	//	name: 'desaturate',
+	//	title: 'Desaturate',
+	//	attributes: {
+	//		size: 50,
+	//		anti_aliasing: true,
+	//	},
+	//},
 	{
 		name: 'bulge_pinch',
 		title: 'Bulge/Pinch tool',
@@ -203,17 +203,17 @@ config.TOOLS = [
 			power: 50,
 			bulge: true,
 		},
-	},
-	{
-		name: 'animation',
-		title: 'Play animation',
-		on_update: 'on_params_update',
-		on_leave: 'on_leave',
-		attributes: {
-			play: false,
-			delay: 400,
-		},
-	},
+	}
+	//{
+	//	name: 'animation',
+	//	title: 'Play animation',
+	//	on_update: 'on_params_update',
+	//	on_leave: 'on_leave',
+	//	attributes: {
+	//		play: false,
+	//		delay: 400,
+	//	},
+	//},
 ];
 
 //link to active tool

@@ -49,8 +49,6 @@ $app = require_once __DIR__.'/../../../framework/bootstrap/app.php';
 
 $kernel = $app->make(Illuminate\Contracts\Http\Kernel::class);
 
-#var_dump(Illuminate\Http\Request::capture());exit();
-
 $response = $kernel->handle(
     $request = Illuminate\Http\Request::capture()
 );
