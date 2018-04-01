@@ -30,7 +30,7 @@ class File_search_media_class {
 		if (data.length > 0) {
 			for (var i in data) {
 				html += '<div class="item pointer">';
-				html += '<img class="displayBlock" alt="" src="' + data[i].previewURL + '" data-url="' + data[i].webformatURL + '" />';
+				html += '<img class="displayBlock" style="background:white" width="'+data[i].previewWidth+'" height="'+data[i].previewHeight+'" alt="" src="' + data[i].previewURL + '" data-url="' + data[i].webformatURL + '" />';
 				html += '</div>';
 			}
 			//fix for last line

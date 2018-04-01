@@ -182,6 +182,7 @@ return [
          */
         Laravel\Cashier\CashierServiceProvider::class,
         Aloha\Twilio\Support\Laravel\ServiceProvider::class,
+        Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
 
     ],
 

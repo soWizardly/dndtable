@@ -10,46 +10,46 @@ class Image extends Model
     
     public static function search() {
     
-        $files = Storage::allFiles('public');
-        $data = [
+        $prefix = Storage::disk('images')->getAdapter()->getPathPrefix();
+        $files  = Storage::disk('images')->allFiles();
+        $max    = 120;
+        $data   = [
             "totalHits" => count($files),
-            "hits" => []
+            "hits"      => []
         ];
-        foreach($files as $file) {
-    
-            if (pathinfo($file, PATHINFO_EXTENSION) == "png") {
-                dd(Storage::getFacadeRoot());
-                $size = getimagesize(Storage::getFacadeRoot().$file);
-                dd($size);
         
+        foreach($files as $file) {
+            if (pathinfo($prefix.$file, PATHINFO_EXTENSION) == "png") {
+                $size = getimagesize($prefix.$file);
+                $url = Storage::disk('images')->url($file);
                 $data["hits"][] = [
-                    "largeImageURL"   => "http://localhost/images/smalllogo.png",
-                    "webformatHeight" => 63, //pz
-                    "webformatWidth"  => 60, //px
+                    "largeImageURL"   => $url,
+                    "webformatHeight" => $size[1] > $max ? $max : $size[1],
+                    "webformatWidth"  => $size[0] > $max ? $max : $size[0],
                     "likes"           => 69,
                     "imageWidth"      => 5000,
                     "id"              => rand(1000000, 9999999),
                     "user_id"         => rand(1000000, 9999999),
                     "views"           => 69,
                     "comments"        => 69,
-                    "pageURL"         => "http://localhost/images/smalllogo.png",
-                    "imageHeight"     => 63,
-                    "webformatURL"    => "http://localhost/images/smalllogo.png",
+                    "pageURL"         => $url,
+                    "imageHeight"     => $size[1] > $max ? $max : $size[1],
+                    "webformatURL"    => $url,
                     "type"            => "photo",
-                    "previewHeight"   => 63,//px
+                    "previewHeight"   => $size[1] > $max ? $max : $size[1],
                     "tags"            => "string,string,string",
                     "downloads"       => 1000,
                     "user"            => "someuser",
                     "favorites"       => 100,
-                    "imageSize"       => 100,
-                    "previewWidth"    => 60,
-                    "userImageURL"    => "http://localhost/images/smalllogo.png",
-                    "previewURL"      => "http://localhost/images/smalllogo.png",
+                    "imageSize"       => $size[1] > $max ? $max : $size[1],
+                    "previewWidth"    => $size[0] > $max ? $max : $size[0],
+                    "userImageURL"    => $url,
+                    "previewURL"      => $url,
                 ];
             }
         }
         
-        return $files;
+        return $data;
     }
     
     public static function make($data) {
@@ -57,10 +57,7 @@ class Image extends Model
         list(, $data) = explode(',', $data);
         $data = base64_decode($data);
         $name = "map";
-        if (!is_dir(storage_path()."\\app\\public\\")) {
-            mkdir(storage_path()."\\app\\public\\");
-        }
-        file_put_contents(storage_path()."\\app\\public\\$name.png", $data);
+        Storage::disk('images')->put("$name.png",$data);
         return $name;
     }
 }

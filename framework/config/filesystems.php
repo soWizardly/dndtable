@@ -55,6 +55,13 @@ return [
             'visibility' => 'public',
         ],
 
+        'images' => [
+            'driver' => 'local',
+            'root' => storage_path()."..\\..\\..\\htdocs\\miniPaint\\images\\users\\",
+            'url' => env('APP_URL').'/images/users/',
+            'visibility' => 'public',
+        ],
+
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_KEY'),

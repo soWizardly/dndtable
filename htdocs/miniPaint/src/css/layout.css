@@ -122,6 +122,30 @@
 	border: 1px solid white;
 	overflow: hidden;
 }
+.josh {
+	position: relative;
+	display: inline-block;
+	float: left;
+	height: 30px;
+	padding: 5px 5px 5px 36px;
+	margin: 5px;
+	text-decoration: none;
+	color: #fff;
+	border-radius: 100px;
+	border: 1px solid #fff;
+	overflow: hidden;
+	margin-right: -30px;
+}
+
+.josh:after{
+	position:absolute;
+	content:"";
+	left: 0;
+	top: 0;
+	width: 31px;
+	height: 30px;
+	background: url(images/josh.jpg) -15px -25px no-repeat;
+}
 .logo:after{
 	position:absolute;
 	content:"";
@@ -167,7 +191,7 @@
 }
 .attributes{
 	float: left;
-	width: calc(100% - 115px);
+	width: calc(100% - 140px);
 	height: 30px;
 	margin-top: 5px;
 	padding: 3px 10px 0 10px;
