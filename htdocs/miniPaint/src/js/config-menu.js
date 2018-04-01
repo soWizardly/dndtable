@@ -16,7 +16,7 @@ var menu_template = `
 				</li>
 				<li><a class="trn dots" data-target="file/search.search" href="#">Search images</a></li>
 				<li><div class="mid-line"></div></li>
-				<li><a class="trn dots" data-target="file/save-local.save_data_url" href="#">Save as data URL</a></li>
+				<li><a class="trn dots" data-target="file/save-local.save_data_url" href="#">Push to Table</a></li>
 				<li><a class="trn dots" data-target="file/print.print" data-key="Ctrl-P" href="#">Print</a></li>
 				<li><div class="mid-line"></div></li>
 			</ul>
