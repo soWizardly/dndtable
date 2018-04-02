@@ -125,11 +125,11 @@ class File_save_class {
 		this.Base_layers.convert_layers_to_canvas(ctx);
 		var data_url = canvas.toDataURL();
 
-		max = 1 * 1000 * 1000;
-		if (data_url.length > max) {
-			alertify.error('Size is too big, max ' + this.Helper.number_format(max, 0) + ' bytes.');
-			return;
-		}
+		//max = 1 * 1000 * 1000;
+		//if (data_url.length > max) {
+		//	alertify.error('Size is too big, max ' + this.Helper.number_format(max, 0) + ' bytes.');
+		//	return;
+		//}
 
 		var settings = {
 			title: 'Data URL',

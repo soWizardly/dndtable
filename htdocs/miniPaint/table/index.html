@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Viewer.js</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="dist/viewer.css">
+</head>
+<body>
+<div class="container">
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
+<script src="dist/viewer.js"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', function () {
+            var image = new Image();
+            image.src = '/images/users/map.png';
+            var viewer = new Viewer(image, {
+                navbar: false,
+                ready: function () {
+                    // 2 methods are available here: "show" and "destroy".
+                },
+            });
+            // image.click();
+            viewer.show();
+    });
+</script>
+</body>
+</html>
