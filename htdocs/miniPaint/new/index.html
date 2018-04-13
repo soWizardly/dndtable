@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>Canvas tutorial</title>
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <style>
+
+        /* The switch - the box around the slider */
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 15px;
+        }
+
+        /* Hide default HTML checkbox */
+        .switch input {display:none;}
+
+        /* The slider */
+        .switch .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            -webkit-transition: .4s;
+            transition: .4s;
+        }
+
+        .switch .slider:before {
+            position: absolute;
+            content: "";
+            height: 7px;
+            width: 24px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            -webkit-transition: .4s;
+            transition: .4s;
+        }
+
+        .switch input:checked + .slider {
+            background-color: #2196F3;
+        }
+
+        .switch input:focus + .slider {
+            box-shadow: 0 0 1px #2196F3;
+        }
+
+        .switch input:checked + .slider:before {
+            -webkit-transform: translateX(26px);
+            -ms-transform: translateX(26px);
+            transform: translateX(26px);
+        }
+
+        /* Rounded sliders */
+        .switch .slider.round {
+            border-radius: 34px;
+        }
+
+        .switch .slider.round:before {
+            border-radius: 50%;
+        }
+
+        canvas {
+            position: absolute;
+            border: 1px solid black;
+        }
+        #CanvasWrapper {overflow:hidden;}
+        #FogOfWarContainer { z-index:999; }
+        #FogOfWar {z-index:999; border:0}
+        #LabelWrapper {margin-bottom:15px;}
+    </style>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script type="text/javascript">
+
+        function table() {
+
+            this.layers   = ['Grid','FogOfWar','Table'];
+            this.width    = Math.round(window.innerWidth * 0.9);
+            this.height   = Math.round(window.innerHeight * 0.9);
+            this.interval = Math.round(this.height  * 0.1);
+            this.draw     = function(layer) {
+                var canvas = document.getElementById(layer);
+                if (canvas.getContext) {
+                        canvas.width = this.width;
+                        canvas.height = this.height;
+                    this['draw' + layer](canvas);
+                }
+            };
+            this.drawFogOfWar = function(canvas){
+
+                var ctx = canvas.getContext('2d');
+                ctx.clearRect(0, 0, this.width, this.height);
+
+                var lightRadius = document.getElementById('FogOfWarLightRadius').value * 1.5;
+                var thisX = this.width * 0.5;
+                var thisY = this.height * 0.5;
+                ctx.globalAlpha = document.getElementById('FogOfWarOpacity').value/100;
+                ctx.fillRect(0, 0, this.width, this.height);
+                ctx.beginPath();
+                ctx.arc(this.width * 0.5, this.height * 0.5, lightRadius, 0, 2 * Math.PI, false);
+                ctx.clip();
+                ctx.clearRect(thisX - lightRadius - 1, thisY - lightRadius - 1,
+                    lightRadius * 2 + 2, lightRadius * 2 + 2);
+
+               // $("#FogOfWarContainer").css("left", this.width).css("height", this.height);
+
+            };
+            this.drawTable = function(canvas){console.log('table')};
+            this.drawGrid = function(canvas){
+
+                var ctx = canvas.getContext('2d');
+                var thisHeight = 0;
+                var thisWidth = this.width;
+
+                ctx.beginPath();
+                while(thisHeight<this.height) {
+                  thisWidth = thisWidth > 0 ? 0 : this.width;
+                  ctx.lineTo(thisWidth, thisHeight);
+                  thisHeight += this.interval;
+                  ctx.moveTo(thisWidth, thisHeight);
+                }
+                while(thisWidth>0) {
+                  thisHeight = thisHeight > 0 ? 0 : this.height;
+                  ctx.lineTo(thisWidth,thisHeight);
+                  thisWidth -= this.interval;
+                  ctx.moveTo(thisWidth,thisHeight);
+                }
+                ctx.stroke();
+            };
+
+            $("#CanvasWrapper").css("width", this.width).css("height", this.height);
+            $("#FogOfWar").css("width", this.width*2).css("height", this.height * 2);
+            $("#FogOfWarContainer").css("left",(this.width*0.50)*-1).css("top",(this.height*0.50)*-1);
+
+            this.layers.forEach(function(layer){
+                this.draw(layer);
+            });
+        }
+
+        var fogRender = function(){
+
+            var canvas = document.getElementById("FogOfWar");
+            canvas.width = canvas.width;
+            var c = canvas.getContext("2d");
+
+            var lightRadius = document.getElementById('FogOfWarLightRadius').value * 1.5;
+            var thisX = canvas.width * 0.5;
+            var thisY = canvas.height * 0.5;
+
+
+            c.globalAlpha = document.getElementById('FogOfWarOpacity').value/100;
+            c.fillRect(0, 0, canvas.width, canvas.height);
+            c.beginPath();
+            c.arc(canvas.width * 0.5, canvas.height * 0.5, lightRadius, 0, 2 * Math.PI, false);
+            c.clip();
+            c.clearRect(thisX - lightRadius - 1, thisY - lightRadius - 1,
+                lightRadius * 2 + 2, lightRadius * 2 + 2);
+        };
+
+        window.onload = function() {
+            document.getElementById('FogOfWarOpacity').onchange = fogRender;
+            document.getElementById('FogOfWarLightRadius').onchange = fogRender;
+            table();
+        };
+
+        $( function() {
+            $( "#FogOfWarContainer" ).draggable();
+            $("#FogOfWarToggle").click(function(){
+                $("#FogOfWar").toggle();
+            });
+        } );
+
+    </script>
+</head>
+<body>
+<div id="LabelWrapper">
+    <label for="FogOfWarOpacity">Fog of War Opacity</label>
+    <input type="range" min="50" max="100" value="80" class="slider" id="FogOfWarOpacity">
+    <label for="FogOfWarLightRadius">Fog of War Light Radius</label>
+    <input type="range" min="20" max="100" value="20" class="slider" id="FogOfWarLightRadius">
+    Off
+    <label class="switch">
+        <input id="FogOfWarToggle" type="checkbox" checked="checked">
+        <span class="slider"></span>
+    </label>
+    On
+</div>
+<div id="CanvasWrapper">
+    <div id="FogOfWarContainer" class="">
+        <canvas id="FogOfWar" width="150" height="150"></canvas>
+    </div>
+    <canvas id="Grid" width="150" height="150"></canvas>
+    <canvas id="Table" width="150" height="150"></canvas>
+</div>
+
+</body>
+</html>
