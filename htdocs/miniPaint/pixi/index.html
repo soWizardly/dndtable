@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Hello World</title>
+    <style>
+        #canvasWrapper {margin:10px;}
+    </style>
+</head>
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+
+<body>
+<div id="canvasWrapper"></div>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/4.7.1/pixi.min.js"></script>-->
+<script src="pixi.js"></script>
+<script>
+    let type = "WebGL"
+    if(!PIXI.utils.isWebGLSupported()){
+        type = "canvas"
+    }
+
+    //Create a Pixi Application
+    let wrapper = document.getElementById("canvasWrapper");
+    let app = new PIXI.Application();
+    let width = Math.round(window.innerWidth*0.9);
+    let height = Math.round(window.innerHeight*0.9);
+
+    wrapper.style.height = height;
+    wrapper.style.width = width;
+
+    //app.renderer.view.style.position = "absolute";
+    app.renderer.view.style.display = "block";
+    app.renderer.autoResize = true;
+    app.renderer.resize(width, height);
+
+    //Add the canvas that Pixi automatically created for you to the HTML document
+    wrapper.appendChild(app.view);
+</script>
+</body>
+
+</html>

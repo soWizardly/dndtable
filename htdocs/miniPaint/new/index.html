@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8"/>
-    <title>Canvas tutorial</title>
+    <title>D&D Table</title>
 
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <style>
@@ -73,7 +73,10 @@
         #CanvasWrapper {overflow:hidden;}
         #FogOfWarContainer { z-index:999; }
         #FogOfWar {z-index:999; border:0}
-        #LabelWrapper {margin-bottom:15px;}
+        .center {
+            margin: auto;
+            width: 50%;
+        }
     </style>
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -171,19 +174,57 @@
         };
 
         $( function() {
+
             $( "#FogOfWarContainer" ).draggable();
             $("#FogOfWarToggle").click(function(){
                 $("#FogOfWar").toggle();
             });
-        } );
+
+            $(document).ready(function () {
+                $("input:file").change(function (){
+                    var fileName = $(this).val();
+                    //console.log(fileName);
+                });
+
+                $("#uploadImage").change(function(e) {
+
+
+                    //(e.target.files);
+
+                    var data = new FormData();
+                    var files = e.target.files;
+
+                    $.each(files, function(key, value)
+                    {
+                        data.append(key, value);
+                    });
+
+                    $.ajax({
+                        type:'POST',
+                        url:'/api/image',
+                        processData: false,
+                        contentType: false,
+                        cache: false,
+                        data : data,
+                        success: function(response){
+                            alert(response);
+                        }
+                    });
+                });
+            });
+        });
+
+
 
     </script>
 </head>
 <body>
-<div id="LabelWrapper">
-    <label for="FogOfWarOpacity">Fog of War Opacity</label>
+<div id="MainWrapper">
+<fieldset id="LabelWrapper">
+    <legend>Fog Of War</legend>
+    <label for="FogOfWarOpacity">Opacity</label>
     <input type="range" min="50" max="100" value="80" class="slider" id="FogOfWarOpacity">
-    <label for="FogOfWarLightRadius">Fog of War Light Radius</label>
+    <label for="FogOfWarLightRadius">Light Radius</label>
     <input type="range" min="20" max="100" value="20" class="slider" id="FogOfWarLightRadius">
     Off
     <label class="switch">
@@ -191,13 +232,22 @@
         <span class="slider"></span>
     </label>
     On
-</div>
-<div id="CanvasWrapper">
+</fieldset>
+<fieldset id="">
+    <legend>Background Image</legend>
+    <form id="data" target="/api/images" method="post" enctype="multipart/form-data">
+        <label for="selectImage"><button id="selectImage">Select</button></label> - or -
+        <label for="uploadImage">Upload New: <input id="uploadImage" type="file"></label>
+    </form>
+</fieldset>
+
+<div id="CanvasWrapper" class="center">
     <div id="FogOfWarContainer" class="">
         <canvas id="FogOfWar" width="150" height="150"></canvas>
     </div>
     <canvas id="Grid" width="150" height="150"></canvas>
     <canvas id="Table" width="150" height="150"></canvas>
+</div>
 </div>
 
 </body>

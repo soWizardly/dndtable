@@ -17,3 +17,4 @@ Route::get('/', function () {
 
 Route::get('image', 'ImageController@index');
 Route::post('image', 'ImageController@store');
+Route::post('pushToTable', 'ImageController@pushToTable');
